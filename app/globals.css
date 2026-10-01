@@ -1,26 +1,114 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f4f4f1;
+  --foreground: #16181d;
+  --card: #ffffff;
+  --muted: #6b7078;
+  --line: #e4e4de;
+  --accent: #0f766e;
+  --good: #15803d;
+  --bad: #c2410c;
+  --warn: #b45309;
+  /* Paleta categórica para gráficas (orden fijo, validada para daltonismo) */
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --s4: #eda100;
+  --s5: #e87ba4;
+  --s6: #008300;
+  --s7: #4a3aa7;
+  --s8: #e34948;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0e1013;
+    --foreground: #eceae4;
+    --card: #181b20;
+    --muted: #9097a1;
+    --line: #2a2e35;
+    --accent: #2dd4bf;
+    --good: #4ade80;
+    --bad: #fb923c;
+    --warn: #fbbf24;
+    --s1: #3987e5;
+    --s2: #d95926;
+    --s3: #199e70;
+    --s4: #c98500;
+    --s5: #d55181;
+    --s6: #008300;
+    --s7: #9085e9;
+    --s8: #e66767;
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-good: var(--good);
+  --color-bad: var(--bad);
+  --color-warn: var(--warn);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-line bg-card p-4;
+  }
+  .label {
+    @apply mb-1 block text-xs font-medium text-muted;
+  }
+  .input {
+    @apply w-full rounded-xl border border-line bg-background px-3 py-2.5 text-base outline-none focus:border-accent;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-50 dark:text-black;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-xl border border-line px-3 py-2 text-sm font-medium;
+  }
+  .num {
+    @apply tabular-nums;
+  }
+  .h1 {
+    @apply text-2xl font-bold tracking-tight;
+  }
+  .h2 {
+    @apply mb-3 text-sm font-semibold uppercase tracking-wide text-muted;
+  }
+}
+
+@keyframes sube {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes aparece {
+  from {
+    opacity: 0;
+  }
+}
+@utility animate-sube {
+  animation: sube 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@utility animate-aparece {
+  animation: aparece 0.2s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-sube,
+  .animate-aparece {
+    animation: none;
+  }
 }
